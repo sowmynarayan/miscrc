@@ -1,8 +1,14 @@
 #!/usr/bin/expect -f
 # Sample expect script to login to devices
+set tbname [lindex $argv 0]
 set timeout 20
 
-spawn ssh -o StrictHostKeyChecking=no root@10.0.0.0
+set ipdict { \
+tb1 10.0.0.0 \
+}
+set tbip [dict get $ipdict $tbname]
+
+spawn ssh -o StrictHostKeyChecking=no root@$tbip
 
 expect "assword: "
 send "password\$123\r"
